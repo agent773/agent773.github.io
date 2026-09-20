@@ -1,0 +1,92 @@
+:root, body[data-theme="dark"] { --bg:#0F0F0F; --ink:#FFFED6; --panel:#404040; --rule:rgba(255,254,214,0.12); --plate-a:#D9D9D9; --plate-b:#cfcfcf; --c1:#3496D5; --c2:#98B15D; --c3:#F4DB40; --c4:#F1A042; --pl0:#3496D5; --pl1:#98B15D; --pl2:#F4DB40; --pl3:#F1A042; --pl4:#E96D46; --pl5:#E63D94; }
+/* Light theme: white page; accents darkened to keep at least 4.5:1 contrast on white */
+body[data-theme="light"] { --bg:#FFFFFF; --ink:#0F0F0F; --panel:#0F0F0F; --rule:rgba(15,15,15,0.15); --plate-a:#EEEEEE; --plate-b:#E4E4E4; --c1:#1B75BB; --c2:#4F7F1A; --c3:#946F00; --c4:#B45F06; --pl0:#1B75BB; --pl1:#4F7F1A; --pl2:#946F00; --pl3:#B45F06; --pl4:#C4431B; --pl5:#D0207A; }
+body[data-theme="light"] footer, body[data-theme="light"] .foot a { color:#FFFFFF; }
+body[data-theme="light"] .brand img { filter: invert(1); }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:"Karla", system-ui, sans-serif; transition:background 200ms ease, color 200ms ease; }
+a { color: var(--ink); text-decoration: none; }
+a:hover { opacity: 0.7; }
+.wrap { max-width:1100px; margin:0 auto; padding:0 clamp(20px, 4vw, 40px); }
+header { display:flex; align-items:flex-end; justify-content:space-between; gap:clamp(20px,3vw,32px); padding:clamp(24px,4vw,42px) 0 clamp(28px,5vw,52px); flex-wrap:wrap; }
+.brand { display:flex; align-items:center; gap:clamp(14px,2.5vw,24px); min-width:0; }
+.brand img { width:clamp(52px,9vw,84px); height:clamp(52px,9vw,84px); object-fit:cover; flex-shrink:0; }
+h1 { font-family:"News Cycle", sans-serif; font-weight:700; text-transform:uppercase; font-size:clamp(30px,7vw,68px); line-height:1; margin:0; letter-spacing:-0.01em; padding-bottom:0.04em; }
+/* Letters are painted as clipped background (like the original gradient name) so the weight matches; plain coloured text renders bolder */
+h1 span { background:var(--l); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; /* enlarge the paint box so overhanging glyphs (A, T) aren't clipped; negative margin keeps the layout unchanged */ padding:0.15em 0.12em; margin:0 -0.12em; }
+.tagline { margin:6px 0 0; font-size:clamp(15px,2vw,18px); opacity:0.8; }
+.quote { margin:8px 0 0; max-width:60ch; font-size:clamp(13px,1.6vw,15px); font-style:italic; line-height:1.45; opacity:0.65; }
+.navwrap { display:flex; align-items:center; justify-content:space-between; gap:clamp(14px,2.5vw,26px); flex-wrap:wrap; width:100%; }
+nav { display:flex; gap:clamp(14px,2.5vw,26px); font-family:"News Cycle", sans-serif; font-size:clamp(15px,2vw,19px); text-transform:uppercase; letter-spacing:0.04em; flex-wrap:wrap; }
+.themebtn { font-family:ui-monospace, monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink); background:transparent; border:1px solid var(--rule); border-radius:999px; padding:11px 18px; min-height:44px; min-width:124px; text-align:center; cursor:pointer; }
+section { padding:clamp(24px,4vw,40px) 0; border-top:1px solid var(--rule); }
+h2 { font-family:"Jost", sans-serif; font-weight:200; font-size:clamp(28px,4vw,40px); line-height:1; margin:0 0 clamp(18px,3vw,28px); }
+#about { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:clamp(18px,3vw,48px); align-items:start; }
+#about h2 { margin:0; color:var(--c1); }
+.aboutlead { display:flex; flex-direction:column; gap:clamp(14px,2vw,20px); min-width:0; }
+.portrait { max-width:240px; }
+#about p { grid-column:span 2; font-size:clamp(17px,2.1vw,20px); line-height:1.55; margin:0; max-width:56ch; text-wrap:pretty; }
+.aboutbody { grid-column:span 2; }
+#about .aboutbody p + p { margin-top:1em; }
+/* Key phrases pick up the section colours (each has a light-theme variant) */
+.hl1 { color:var(--c1); }
+.hl2 { color:var(--c2); }
+.hl3 { color:var(--c3); }
+.hl4 { color:var(--c4); }
+#projects h2 { color:var(--c2); }
+#projects p { margin:0; font-size:clamp(17px,2.1vw,20px); line-height:1.55; max-width:56ch; }
+#projects p a { text-decoration:underline; text-underline-offset:4px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:clamp(14px,2vw,20px); }
+.card { display:block; border:1px solid var(--rule); border-radius:2px; padding:20px; }
+.card b { display:block; font-family:"News Cycle", sans-serif; font-weight:700; font-size:22px; text-transform:uppercase; letter-spacing:0.02em; }
+.card span { display:block; margin-top:8px; font-size:16px; line-height:1.5; opacity:0.8; }
+.card em { display:block; margin-top:14px; font-style:normal; font-family:ui-monospace, monospace; font-size:12px; letter-spacing:0.08em; color:var(--c2); }
+#portfolio h2 { color:var(--c3); }
+.shots { display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:clamp(14px,2vw,22px); }
+.shotbtn { display:block; text-align:left; padding:0; border:0; background:transparent; color:var(--ink); cursor:pointer; font:inherit; }
+.shottitle { display:block; margin-top:10px; font-family:"News Cycle", sans-serif; font-size:17px; text-transform:uppercase; letter-spacing:0.03em; }
+.shotdate { display:block; margin-top:4px; font-family:ui-monospace, monospace; font-size:11px; letter-spacing:0.1em; opacity:0.6; }
+#lightbox[hidden] { display:none; }
+#lightbox { position:fixed; inset:0; background:rgba(10,10,10,0.88); display:grid; place-items:center; padding:clamp(16px,4vw,48px); z-index:50; }
+.lbcard { background:var(--bg); color:var(--ink); border:1px solid var(--rule); max-width:980px; width:100%; max-height:90vh; overflow:auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); }
+.lbtext { padding:clamp(22px,3vw,36px); display:flex; flex-direction:column; gap:14px; }
+.lbhead { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; }
+.lbtitle { font-family:"Jost", sans-serif; font-weight:200; font-size:clamp(26px,3.4vw,36px); line-height:1.05; }
+.lbdate { font-family:ui-monospace, monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; opacity:0.65; }
+.lbbody { margin:0; font-size:17px; line-height:1.6; max-width:46ch; text-wrap:pretty; }
+.lbspecs { margin:0; padding-top:14px; border-top:1px solid var(--rule); font-family:ui-monospace, monospace; font-size:12px; letter-spacing:0.08em; line-height:1.6; opacity:0.75; }
+.lbspecs[hidden] { display:none; }
+.lbnav { margin-top:auto; display:flex; gap:10px; padding-top:18px; }
+.pill { min-height:44px; padding:11px 18px; border:1px solid var(--rule); border-radius:999px; background:transparent; color:var(--ink); font-family:ui-monospace, monospace; font-size:12px; letter-spacing:0.1em; cursor:pointer; }
+.lbclose { flex-shrink:0; width:44px; height:44px; border:1px solid var(--rule); border-radius:999px; background:transparent; color:var(--ink); font-size:18px; line-height:1; cursor:pointer; }
+.shot { aspect-ratio:4/5; background:repeating-linear-gradient(135deg, var(--plate-a) 0 8px, var(--plate-b) 8px 16px); display:grid; place-items:center; font-family:ui-monospace, monospace; font-size:12px; color:#4a4a4a; letter-spacing:0.08em; text-transform:uppercase; }
+.contact { display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; }
+.contact strong { font-family:"Jost", sans-serif; font-weight:200; font-size:clamp(22px,3vw,30px); }
+.contact a { font-size:clamp(17px,2.1vw,20px); text-decoration:underline; text-underline-offset:4px; }
+footer { background:var(--panel); margin-top:clamp(32px,5vw,56px); color:#FFFED6; }
+.foot { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:clamp(22px,4vw,34px) clamp(20px,4vw,40px); flex-wrap:wrap; }
+.foot ul { display:flex; gap:25px; list-style:none; margin:0; padding:0; font-size:16px; }
+.foot a { color:#FFFED6; }
+.note { font-size:13px; opacity:0.75; }
+.shot { overflow:hidden; }
+.shot img { display:block; width:100%; height:100%; object-fit:cover; }
+/* Discourage saving photos: no drag-out or long-press menu (text stays selectable) */
+img { -webkit-user-drag:none; user-select:none; -webkit-touch-callout:none; }
+/* Lightbox: show the whole photo at its own aspect ratio */
+.lbcard .shot { aspect-ratio:auto; background:none; }
+.lbcard .shot img { height:auto; max-height:90vh; object-fit:contain; }
+@media (min-width:760px) { .lbcard { max-width:1100px; grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr); } }
+a:focus-visible, button:focus-visible { outline:2px solid var(--c1); outline-offset:3px; }
+.credit { margin:clamp(18px,3vw,28px) 0 0; max-width:64ch; font-size:14px; line-height:1.55; opacity:0.7; }
+.lbcredit { margin:0; font-size:12px; line-height:1.5; opacity:0.65; }
+section { transition:opacity 220ms ease; }
+section.fade-out { opacity:0; }
+section:focus { outline:none; }
+@media (prefers-reduced-motion: reduce) { section { transition:none; } }
+@keyframes lbfade { from { opacity:0; } to { opacity:1; } }
+#lightbox:not([hidden]) { animation:lbfade 220ms ease; }
+.lbcard > * { transition:opacity 180ms ease; }
+.lbcard.lb-swap > * { opacity:0; }
+@media (prefers-reduced-motion: reduce) { #lightbox:not([hidden]) { animation:none; } .lbcard > * { transition:none; } }
+@keyframes lbfadeout { from { opacity:1; } to { opacity:0; } }
+#lightbox.lb-closing { animation:lbfadeout 180ms ease forwards; }

@@ -1,0 +1,246 @@
+---
+import { Image, getImage } from "astro:assets";
+import logo from "../assets/logo.png";
+import profile from "../assets/photos/profile.jpg";
+import tahoe from "../assets/photos/tahoe.jpg";
+import pointArena from "../assets/photos/point-arena.jpg";
+import mtFuji from "../assets/photos/mt-fuji.jpg";
+import crawdad from "../assets/photos/crawdad.jpg";
+import classified from "../assets/photos/classified.jpg";
+
+const nav = [
+  { label: "About", href: "#about", color: "var(--c1)" },
+  { label: "Projects", href: "#projects", color: "var(--c2)" },
+  { label: "Portfolio", href: "#portfolio", color: "var(--c3)" },
+  { label: "Contact", href: "#contact", color: "var(--c4)" },
+];
+const projects = [
+  { title: "Project one", body: "Placeholder — one line on what it does.", href: "#", color: "#3496D5" },
+  { title: "Project two", body: "Placeholder — one line on what it does.", href: "#", color: "#F1A042" },
+  { title: "Project three", body: "Placeholder — one line on what it does.", href: "#", color: "#E63D94" },
+];
+const shots = [
+  {
+    title: "Tahoe",
+    image: tahoe,
+    alt: "Aerial drone photograph of Lake Tahoe",
+    date: "March 2025",
+    body: "I took this photo over Lake Tahoe with my drone. It was one of my first times flying it, and I think the image came out pretty well.",
+    specs: "DJI Mavic Pro · f/2.2 · 1/2577 s · 5mm · ISO 100",
+  },
+  {
+    title: "Point Arena",
+    image: pointArena,
+    alt: "Photograph taken near the Point Arena Lighthouse",
+    date: "January 2024",
+    body: "I took this photo near the Point Arena Lighthouse. I was inspired by Jarin Blaschke’s cinematography and tried to emulate its dramatic effect.",
+    specs: "Canon EOS 800D · f/10 · 1/160 s · 18mm · ISO 100",
+  },
+  {
+    title: "Mt. Fuji",
+    image: mtFuji,
+    alt: "Black-and-white photograph of Mt. Fuji",
+    date: "November 2025",
+    body: "Ah, Mt. Fuji—how I wish I could go back. I shot this in monochrome just to try something different, and it became one of my favorite pictures I’ve ever taken.",
+    specs: "Canon EOS 800D · f/18 · 1/640 s · 18mm · ISO 100",
+  },
+  {
+    title: "Crawdad!",
+    image: crawdad,
+    alt: "Polaroid photograph taken with a neutral-density filter",
+    date: "August 2025",
+    body: "This was one of the first photos I took after my neutral-density filter arrived for the SX-70. I was blown away by the effect. It was absolutely stunning!",
+    specs: "Polaroid SX-70 · 600 Film · ND Filter",
+  },
+  {
+    title: "Classified",
+    image: classified,
+    alt: "Classified",
+    date: "July 2024",
+    body: "Classified.",
+    specs: "Classified",
+  },
+];
+
+// Optimized full-size versions for the lightbox (swapped in by main.js).
+const lightbox = await Promise.all(
+  shots.map((s) => getImage({ src: s.image, width: 1600, format: "webp" }))
+);
+
+// Entries with an empty href are hidden; fill in the URLs to show them.
+const socials = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/parth-patel-berkeley/" },
+  { label: "GitHub", href: "https://github.com/agent773" },
+  { label: "Instagram", href: "https://www.instagram.com/linear_captures/" },
+].filter((s) => s.href);
+const github = socials.find((s) => s.label === "GitHub")?.href;
+
+// Each letter of the name takes the next Polaroid colour (--pl0..--pl5 in global.css); punctuation reuses the previous letter's.
+let letterCount = 0;
+const nameLetters = [..."Parth R. Patel"].map((ch) => {
+  if (ch === " ") return { ch };
+  if (/[a-z]/i.test(ch)) letterCount++;
+  return { ch, i: (letterCount - 1) % 6 };
+});
+
+// The address never appears in the HTML; main.js decodes it in the browser so scrapers don't see it.
+const email = Buffer.from("parpatel773@gmail.com").toString("base64");
+
+const title = "Parth R. Patel | Data Science & Software Engineering";
+const description =
+  "Parth R. Patel: UC Berkeley Data Science graduate ('25) working in privacy, NLP, computer vision and algorithms. Open to data science, software engineering and research roles. Also a photographer.";
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL((await getImage({ src: profile, width: 1200, height: 630, format: "jpg" })).src, Astro.site);
+const year = new Date().getFullYear();
+const copyright = `© ${year} Parth R. Patel. All rights reserved.`;
+const person = {
+  "@type": "Person",
+  name: "Parth R. Patel",
+  url: Astro.site?.href,
+  image: ogImage.href,
+  alumniOf: { "@type": "CollegeOrUniversity", name: "University of California, Berkeley" },
+  knowsAbout: ["Data science", "Natural language processing", "Computer vision", "Algorithms", "Privacy", "Photography"],
+  sameAs: socials.map((s) => s.href),
+};
+// Creator and copyright metadata on each photo (shown in Google Images).
+const photos = shots.map((s, i) => ({
+  "@type": "ImageObject",
+  contentUrl: new URL(lightbox[i].src, Astro.site).href,
+  name: s.title,
+  creator: { "@type": "Person", name: "Parth R. Patel" },
+  creditText: "Parth R. Patel",
+  copyrightNotice: copyright,
+  acquireLicensePage: new URL("#contact", Astro.site).href,
+}));
+const jsonLd = { "@context": "https://schema.org", "@graph": [person, ...photos] };
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Parth R. Patel" />
+    <meta name="copyright" content={copyright} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="robots" content="noai, noimageai" />
+    <meta name="tdm-reservation" content="1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0F0F0F" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&family=Jost:wght@200;300&family=Karla:wght@300;400&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body data-theme="dark">
+    <script is:inline>document.body.dataset.theme = localStorage.getItem("prp-theme") || "dark";</script>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <Image src={logo} alt="Parth R. Patel mark" width={168} height={168} loading="eager" />
+          <div>
+            <h1 aria-label="Parth R. Patel">{nameLetters.map((l) => (l.i === undefined ? " " : <span style={`--l:var(--pl${l.i})`}>{l.ch}</span>))}</h1>
+            <p class="tagline">Data Science, UC Berkeley ’25 · Open to opportunities</p>
+            <p class="quote">“I would rather have questions that can’t be answered than answers that can’t be questioned.” — Richard P. Feynman</p>
+          </div>
+        </div>
+        <div class="navwrap">
+          <nav>{nav.map((n) => <a href={n.href} style={`color:${n.color}`}>{n.label}</a>)}</nav>
+          <button class="themebtn" id="theme-toggle" type="button">Light mode</button>
+        </div>
+      </header>
+
+      <section id="about">
+        <div class="aboutlead">
+          <h2>About</h2>
+          <div class="shot portrait"><Image src={profile} alt="Portrait of Parth R. Patel" width={480} height={600} loading="eager" /></div>
+        </div>
+        <div class="aboutbody">
+          {/* Keep each paragraph on one line: Astro drops the whitespace at a line break next to a tag, which glues words together. */}
+          <p>How’s it going? I’m Parth, and welcome to my Myspace. I’m a <span class="hl3">photographer</span>, <span class="hl2">aspiring researcher</span>, <span class="hl1">data scientist</span>, <span class="hl1">software engineer</span>, and kosmopolitês (jk). Like many people, though, I contain multitudes!</p>
+          <p>I graduated from <span class="hl1">UC Berkeley</span> in 2025 with a degree in <span class="hl1">Data Science</span>, and I’m currently <span class="hl4">open to employment opportunities in data science, software engineering, and research</span>. My hobbies include cooking, reading, gaming, and driving (when electricity prices are reasonable). <span class="hl3">Photography isn’t just a hobby; it’s a passion.</span></p>
+          <p>In my technical work, I’m passionate about <span class="hl2">privacy</span>, <span class="hl2">natural language processing</span>, <span class="hl2">computer vision</span>, and <span class="hl2">algorithms</span>.</p>
+          <!-- <p>Currently reading: <em class="hl4">Chaos: Charles Manson, the CIA, and the Secret History of the Sixties</em> by Tom O’Neill.</p> -->
+          <p>The full site is still in progress, so this page is the short version.</p>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h2>Projects</h2>
+        <!-- <div class="cards">
+          {projects.map((p) => (
+            <a class="card" href={p.href}>
+              <b style={`color:${p.color}`}>{p.title}</b>
+              <span>{p.body}</span>
+              <em>VIEW &rarr;</em>
+            </a>
+          ))}
+        </div> -->
+        <p>Project write-ups are on the way. In the meantime, my code is on <a href={github} target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </section>
+
+      <section id="portfolio">
+        <h2>Portfolio</h2>
+        <div class="shots">
+          {shots.map((s, i) => (
+            <button class="shotbtn" type="button" data-title={s.title} data-date={s.date} data-body={s.body} data-specs={s.specs} data-image={lightbox[i].src}>
+              <div class="shot"><Image src={s.image} alt={s.alt} width={480} height={600} sizes="(min-width: 760px) 25vw, 45vw" /></div>
+              <span class="shottitle">{s.title}</span>
+              <span class="shotdate">{s.date}</span>
+            </button>
+          ))}
+        </div>
+        <p class="credit">
+          &copy; {new Date().getFullYear()} Parth R. Patel. I took every photograph in this portfolio.
+          Please don&rsquo;t copy, reuse, or redistribute them without my permission and proper credit.
+        </p>
+      </section>
+
+      <section class="contact" id="contact">
+        <strong>Get in touch</strong>
+        <a id="email-link" data-e={email} href="#contact">Email (needs JavaScript)</a>
+        <noscript><span>parpatel773 [at] gmail [dot] com</span></noscript>
+      </section>
+    </div>
+
+    <div id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
+      <div class="lbcard">
+        <div class="shot"><img id="lb-img" alt="" /></div>
+        <div class="lbtext">
+          <div class="lbhead">
+            <span class="lbtitle" id="lb-title"></span>
+            <button class="lbclose" id="lb-close" type="button" aria-label="Close">&times;</button>
+          </div>
+          <span class="lbdate" id="lb-date"></span>
+          <p class="lbbody" id="lb-body"></p>
+          <p class="lbspecs" id="lb-specs" hidden></p>
+          <p class="lbcredit">&copy; Parth R. Patel. Please ask before reusing, and credit me if you share it.</p>
+          <div class="lbnav">
+            <button class="pill" id="lb-prev" type="button">&larr; PREV</button>
+            <button class="pill" id="lb-next" type="button">NEXT &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="foot">
+        <span class="note">This is the short version of the site. The full build is in progress.</span>
+        <ul>{socials.map((s) => <li><a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a></li>)}</ul>
+        <span class="note">&copy; {year} Parth R. Patel. All rights reserved.</span>
+      </div>
+    </footer>
+
+    <script is:inline src="/scripts/main.js"></script>
+  </body>
+</html>
