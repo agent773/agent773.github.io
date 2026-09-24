@@ -5,11 +5,11 @@
     "apps/*"
   ],
   "scripts": {
-    "dev:placeholder": "yarn --cwd apps/placeholder dev",
-    "build:placeholder": "yarn --cwd apps/placeholder build",
-    "preview:placeholder": "yarn --cwd apps/placeholder preview",
-    "dev:site": "yarn --cwd apps/site start",
-    "build:site": "yarn --cwd apps/site build"
+    "dev:placeholder": "npm --prefix apps/placeholder run dev",
+    "build:placeholder": "npm --prefix apps/placeholder run build",
+    "preview:placeholder": "npm --prefix apps/placeholder run preview",
+    "dev:site": "npm --prefix apps/site start",
+    "build:site": "npm --prefix apps/site run build"
   },
   "packageManager": "yarn@4.18.0+sha512.fcb8716fe7cd0eece141ffc18b92193a9df9204c1ba83189c288835223fc0bbe64af473bab0d5e9927a7daeb5caf2bb07eb2787cc9338ca040ea125f2a1f2f7e"
 }

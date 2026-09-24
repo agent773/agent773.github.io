@@ -40,10 +40,11 @@ jobs:
 
       - run: yarn install --immutable
 
-      # Run from inside the workspace rather than `yarn workspace <name> build`: that command
-      # needs a lookup file Yarn doesn't reliably write under --immutable + node-modules linker,
-      # and fails with "Couldn't find the node_modules state file".
-      - run: yarn build
+      # `npm run build`, not `yarn build`/`yarn workspace`: under --immutable, Yarn 4's
+      # node-modules linker doesn't reliably write the lookup file yarn's script runner needs,
+      # which fails with "Couldn't find the node_modules state file". node_modules is a normal,
+      # npm-compatible folder either way, so npm can run the same script without that lookup.
+      - run: npm run build
         working-directory: apps/${{ env.PUBLISH_APP }}
 
       - name: Prepare output
