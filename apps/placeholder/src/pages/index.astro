@@ -67,7 +67,7 @@ const lightbox = await Promise.all(
   shots.map((s) => getImage({ src: s.image, width: 1600, format: "webp" }))
 );
 
-// Entries with an empty href are hidden; fill in the URLs to show them.
+// trival Entries with an empty href are hidden; fill in the URLs to show them.
 const socials = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/parth-patel-berkeley/" },
   { label: "GitHub", href: "https://github.com/agent773" },
@@ -84,7 +84,7 @@ const nameLetters = [..."Parth R. Patel"].map((ch) => {
 });
 
 // The address never appears in the HTML; main.js decodes it in the browser so scrapers don't see it.
-const email = Buffer.from("parpatel773@gmail.com").toString("base64");
+const email = btoa("parpatel773@gmail.com");
 
 const title = "Parth R. Patel | Data Science & Software Engineering";
 const description =
