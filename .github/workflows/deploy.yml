@@ -27,8 +27,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Corepack must be enabled before setup-node so the Yarn cache works.
-      - run: corepack enable
+      # Corepack must be enabled and pinned to the exact Yarn version before setup-node's
+      # yarn cache lookup runs, or that lookup can invoke a different yarn first.
+      - run: |
+          corepack enable
+          corepack prepare yarn@4.18.0 --activate
 
       - uses: actions/setup-node@v4
         with:
