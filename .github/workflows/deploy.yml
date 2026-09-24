@@ -18,6 +18,8 @@ env:
   # Workspace to publish: "placeholder" (Astro) or "site" (Angular).
   # Set the repository variable PUBLISH_APP to "site" to cut over.
   PUBLISH_APP: ${{ vars.PUBLISH_APP || 'placeholder' }}
+  # Same as nodeLinker in .yarnrc.yml; Angular and Astro need a real node_modules folder.
+  YARN_NODE_LINKER: node-modules
 
 jobs:
   build:
