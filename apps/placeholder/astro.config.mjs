@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  // User site (repo is agent773.github.io), served from the root, so `base` stays unset.
-  // Change this if you add a custom domain.
+  // Custom domain (see public/CNAME), served from the root, so `base` stays unset.
   site: 'https://parthrpatel.xyz',
 });
