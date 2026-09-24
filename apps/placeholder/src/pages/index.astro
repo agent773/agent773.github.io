@@ -167,11 +167,11 @@ const jsonLd = { "@context": "https://schema.org", "@graph": [person, ...photos]
         </div>
         <div class="aboutbody">
           {/* Keep each paragraph on one line: Astro drops the whitespace at a line break next to a tag, which glues words together. */}
-          <p>How’s it going? I’m Parth, and welcome to my Myspace. I’m a <span class="hl3">photographer</span>, <span class="hl2">aspiring researcher</span>, <span class="hl1">data scientist</span>, <span class="hl1">software engineer</span>, and kosmopolitês (jk). Like many people, though, I contain multitudes!</p>
+          <p>How’s it going? I’m Parth, and welcome to my Myspace. I’m a <span class="hl3">photographer</span>, <span class="hl2">aspiring researcher</span>, <span class="hl1">data scientist</span>, <span class="hl1">software engineer</span>, and kosmopolitês (jk). Like many people, I contain multitudes!</p>
           <p>I graduated from <span class="hl1">UC Berkeley</span> in 2025 with a degree in <span class="hl1">Data Science</span>, and I’m currently <span class="hl4">open to employment opportunities in data science, software engineering, and research</span>. My hobbies include cooking, reading, gaming, and driving (when electricity prices are reasonable). <span class="hl3">Photography isn’t just a hobby; it’s a passion.</span></p>
           <p>In my technical work, I’m passionate about <span class="hl2">privacy</span>, <span class="hl2">natural language processing</span>, <span class="hl2">computer vision</span>, and <span class="hl2">algorithms</span>.</p>
           <!-- <p>Currently reading: <em class="hl4">Chaos: Charles Manson, the CIA, and the Secret History of the Sixties</em> by Tom O’Neill.</p> -->
-          <p>The full site is still in progress, so this page is the short version.</p>
+          <p>The full site is still in progress so this page is a preview of whats to come.</p>
         </div>
       </section>
 
@@ -190,7 +190,7 @@ const jsonLd = { "@context": "https://schema.org", "@graph": [person, ...photos]
       </section>
 
       <section id="portfolio">
-        <h2>Portfolio Sampler (full comming soon)</h2>
+        <h2>Portfolio Sampler</h2>
         <div class="shots">
           {shots.map((s, i) => (
             <button class="shotbtn" type="button" data-title={s.title} data-date={s.date} data-body={s.body} data-specs={s.specs} data-image={lightbox[i].src}>
