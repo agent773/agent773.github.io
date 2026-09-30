@@ -15,9 +15,27 @@ const nav = [
   { label: "Contact", href: "#contact", color: "var(--c4)" },
 ];
 const projects = [
-  { title: "Project one", body: "Placeholder — one line on what it does.", href: "#", color: "#3496D5" },
-  { title: "Project two", body: "Placeholder — one line on what it does.", href: "#", color: "#F1A042" },
-  { title: "Project three", body: "Placeholder — one line on what it does.", href: "#", color: "#E63D94" },
+  {
+    title: "Bid & Estimating Tools",
+    body: "Three production tools that automate bidding and estimating for a Bay Area construction subcontractor. An ML estimator cut estimates from over an hour to 20–30 minutes, and the tools save the team about 10 hours a week.",
+    stack: "Python · scikit-learn · FastAPI · Claude API",
+    href: "https://github.com/agent773/Community-Playgrounds-Projects",
+    color: "var(--pl0)",
+  },
+  {
+    title: "Speed Dating Matches",
+    body: "Predicting whether two people match after a four-minute speed date, using 8,378 dates from a Columbia study. Six tuned classifiers compared; XGBoost reached an AUC of 0.81.",
+    stack: "Python · scikit-learn · XGBoost · Jupyter",
+    href: "https://github.com/agent773/Speed-Dating-Matches",
+    color: "var(--pl3)",
+  },
+  {
+    title: "Budget Tracker",
+    body: "A personal budgeting app that pulls bank and brokerage accounts into one view through the Plaid API, with manual entry for the rest. In progress, targeting mid-October.",
+    stack: "Python · FastAPI · React · Plaid",
+    href: "https://github.com/agent773/budget-tracker",
+    color: "var(--pl5)",
+  },
 ];
 const shots = [
   {
@@ -177,16 +195,17 @@ const jsonLd = { "@context": "https://schema.org", "@graph": [person, ...photos]
 
       <section id="projects">
         <h2>Projects</h2>
-        <!-- <div class="cards">
+        <div class="cards">
           {projects.map((p) => (
-            <a class="card" href={p.href}>
+            <a class="card" href={p.href} target="_blank" rel="noopener noreferrer">
               <b style={`color:${p.color}`}>{p.title}</b>
               <span>{p.body}</span>
-              <em>VIEW &rarr;</em>
+              <small>{p.stack}</small>
+              <em style={`color:${p.color}`}>VIEW ON GITHUB &rarr;</em>
             </a>
           ))}
-        </div> -->
-        <p>Project write-ups are on the way. In the meantime, my code is on <a href={github} target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+        </div>
+        <p class="more">More of my code is on <a href={github} target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
       </section>
 
       <section id="portfolio">

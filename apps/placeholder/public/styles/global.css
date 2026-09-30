@@ -37,7 +37,10 @@ h2 { font-family:"Jost", sans-serif; font-weight:200; font-size:clamp(28px,4vw,4
 #projects p { margin:0; font-size:clamp(17px,2.1vw,20px); line-height:1.55; max-width:56ch; }
 #projects p a { text-decoration:underline; text-underline-offset:4px; }
 .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:clamp(14px,2vw,20px); }
-.card { display:block; border:1px solid var(--rule); border-radius:2px; padding:20px; }
+.card { display:flex; flex-direction:column; border:1px solid var(--rule); border-radius:2px; padding:20px; }
+.card small { display:block; margin-top:12px; font-family:ui-monospace, monospace; font-size:11px; letter-spacing:0.06em; line-height:1.6; opacity:0.65; }
+.card em { margin-top:auto; padding-top:14px; }
+#projects p.more { margin-top:clamp(16px,2.5vw,24px); font-size:16px; opacity:0.8; }
 .card b { display:block; font-family:"News Cycle", sans-serif; font-weight:700; font-size:22px; text-transform:uppercase; letter-spacing:0.02em; }
 .card span { display:block; margin-top:8px; font-size:16px; line-height:1.5; opacity:0.8; }
 .card em { display:block; margin-top:14px; font-style:normal; font-family:ui-monospace, monospace; font-size:12px; letter-spacing:0.08em; color:var(--c2); }
